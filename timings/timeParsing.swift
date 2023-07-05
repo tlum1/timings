@@ -46,6 +46,31 @@ class TimeParser{
         
         return "\(startDay) - \(endDay)"
     }
+    
+    func addTime(a:String, b:String) -> String{
+        var a_splt = a.split(separator: ":")
+        var b_splt = b.split(separator: ":")
+        
+        var h = (Int(a_splt[0]) ?? 0)  + (Int(b_splt[0]) ?? 0)
+        var m = (Int(a_splt[1]) ?? 0)  + (Int(b_splt[1]) ?? 0)
+        var s = (Int(a_splt[2]) ?? 0)  + (Int(b_splt[2]) ?? 0)
+
+        m = m + s / 60
+        s = s % 60
+
+        h = h + m / 60
+        m = m % 60
+
+        var timeString = ""
+        timeString += String(format: "%02d", h)
+        timeString += ":"
+        timeString += String(format: "%02d", m)
+        timeString += ":"
+        timeString += String(format: "%02d", s)
+
+        return timeString
+        
+    }
 }
 
 extension Date {

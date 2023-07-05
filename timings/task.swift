@@ -11,8 +11,6 @@ class Task{
     var name: String = ""
     var time: String = ""
     func writeTask(path:String) -> Void{
-        print("writing data to file \(path).json")
-        print("name:\(self.name), time: \(self.time)")
         
         let JSONHelper = servicesJSON()
         let parser = TimeParser()
@@ -20,23 +18,18 @@ class Task{
         let date = parser.getDateLikeYYYYMMDD(date: Date())
         let week = parser.getWeekStartEndFromDate(date: Date())
         
-        print(date)
-        print(week)
+        var data:  Dictionary<String, Dictionary<String, Dictionary<String, String>>> = JSONHelper.loadJSON(withFilename: path) as! Dictionary<String, Dictionary<String, Dictionary<String, String>>>
+
         
-        var data:  Dictionary<String, Dictionary<String, Dictionary<String, String>>> = JSONHelper.readJSON(fileName: path)
-        
-        for (key, value) in data {
-            print("\(key) - \(value)")
-        }
-        
-        var containsWeek = data.contains{$0.key == week}
-        
+        let containsWeek = data.contains{$0.key == week}
+
         if containsWeek{
-            var containsDate = data[week]!.contains{$0.key == date}
+            let containsDate = data[week]!.contains{$0.key == date}
             if containsDate{
-                var containsCategory = data[week]![date]!.contains{$0.key == name}
+                let containsCategory = data[week]![date]!.contains{$0.key == name}
                 if containsCategory{
-                    // Подумать как лучше складывать время: в строках или переводить все в Date() и там складывать
+                    let newTime = parser.addTime(a: data[week]![date]![name]!, b: time)
+                    data[week]![date]![name]! = newTime
                 }else{
                     data[week]![date]![name] = time
                 }
@@ -46,15 +39,17 @@ class Task{
         }else{
             data[week] = [date:[name:time]]
         }
-            
+        print("\(data as AnyObject)")
+        
+        JSONHelper.saveToJSON(toFilename: path, jsonObject: data)
     }
     
 }
 
 /*
  TODO
- - Складывать время
- - Сохранять данные
+ - Складывать время Done
+ - Сохранять данные Done
  - Научиться рисовать графики
  - Добавить кнопку для отображения статистики
  - Добавить handler когда поле категории пустое

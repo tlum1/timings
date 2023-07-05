@@ -8,35 +8,39 @@
 import Foundation
 
 class servicesJSON{
-    func saveToJSON(fileName:String, data:String) {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory,
-                                                            in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent(fileName)
-            print("\(pathWithFilename)")
-            do {
-                try data.write(to: pathWithFilename,
-                                     atomically: true,
-                                     encoding: .utf8)
-            } catch {
-                print("error")
-            }
-        }
-    }
     
-    func readJSON(fileName:String)-> Dictionary<String, Dictionary<String, Dictionary<String, String>>>{
-        var result: Dictionary<String, Dictionary<String, Dictionary<String, String>>> = [:]
-        if let path = Bundle.main.path(forResource: fileName, ofType: "json") {
-            do {
-                  let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                  let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                  if let jsonResult = jsonResult as?  Dictionary<String, Dictionary<String, Dictionary<String, String>>>{
-                    result = jsonResult
+    func saveToJSON(toFilename filename:String, jsonObject:Any) -> Bool {
+        let fm = FileManager.default
+                let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+        if let url = urls.first {
+                do {
+                    var fileURL = url.appendingPathComponent(filename)
+                    fileURL = fileURL.appendingPathExtension("json")
+                    let data = try JSONSerialization.data(withJSONObject: jsonObject, options: [.prettyPrinted])
+                    try data.write(to: fileURL, options: [.atomicWrite])
+                    return true
+                } catch{
+                    print("Error during writing file \(filename).json")
                 }
-              } catch {
-                   print("Error during opening file \(fileName).json")
-              }
+            }
+            return false
         }
-        
-        return result
-    }
+   
+
+    func loadJSON(withFilename filename: String) -> Any? {
+            let fm = FileManager.default
+            let urls = fm.urls(for: .documentDirectory, in: .userDomainMask)
+            if let url = urls.first {
+                do{
+                    var fileURL = url.appendingPathComponent(filename)
+                    fileURL = fileURL.appendingPathExtension("json")
+                    let data = try Data(contentsOf: fileURL)
+                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .mutableLeaves])
+                    return jsonObject
+                } catch{
+                    print("Error during opening file \(filename).json")
+                }
+            }
+            return nil
+        }
 }
