@@ -17,6 +17,6 @@ Timings is aMinimalistic app for time managment. Timings can be used to monitori
 - Share statistics button
 - Full-time statistics
 
+## Latest updates
+- Full-time statistic was added
 
-
-![Simulator Screenshot - iPhone 14 Pro - 2023-07-10 at 15 39 21](https://github.com/tlum1/timings/assets/65652086/736b4ca5-9348-4ecc-a64b-78ce6874c867)
