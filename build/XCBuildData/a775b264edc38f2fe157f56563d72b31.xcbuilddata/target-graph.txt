@@ -1,0 +1,11 @@
+Target dependency graph (5 targets)
+DGCharts in Pods, no dependencies
+TinyConstraints in Pods, no dependencies
+Pods-timings in Pods, depends on:
+DGCharts in Pods (explicit)
+TinyConstraints in Pods (explicit)
+Pods-timings-timingsUITests in Pods, depends on:
+DGCharts in Pods (explicit)
+TinyConstraints in Pods (explicit)
+Pods-timingsTests in Pods, depends on:
+Pods-timings in Pods (explicit)

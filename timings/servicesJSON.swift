@@ -36,6 +36,7 @@ class servicesJSON{
                     fileURL = fileURL.appendingPathExtension("json")
                     let data = try Data(contentsOf: fileURL)
                     let jsonObject = try JSONSerialization.jsonObject(with: data, options: [.mutableContainers, .mutableLeaves])
+//                print(fileURL)
                     return jsonObject
                 } catch{
                     print("Error during opening file \(filename).json")

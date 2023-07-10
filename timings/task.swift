@@ -39,7 +39,7 @@ class Task{
         }else{
             data[week] = [date:[name:time]]
         }
-        print("\(data as AnyObject)")
+//        print("\(data as AnyObject)")
         
         JSONHelper.saveToJSON(toFilename: path, jsonObject: data)
     }

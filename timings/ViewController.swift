@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import TinyConstraints
+import DGCharts
 
 class ViewController: UIViewController {
     @IBOutlet weak var startBtn: UIButton!
@@ -14,6 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var statsButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,23 +35,31 @@ class ViewController: UIViewController {
     var isPaused = true
     var parser:TimeParser = TimeParser()
     var task:Task = Task()
+    
     @IBAction func startBtnClick(_ sender: Any) {
-        print("start!")
-        startBtn.alpha = 0
-        clockLabel.alpha = 1
-        pausePlayButton.alpha = 1
-        stopButton.alpha = 1
-        
-        isPaused = false
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
-        
-        textField.resignFirstResponder()
         if let text  = textField.text{
-            task.name = text
+            if text.isEmpty{
+                let alert = UIAlertController(title: "Category name is empty", message: "Please write what you going to do", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {(_) in
+                    // do nothing
+                }))
+                self.present(alert, animated: true, completion: nil)
+            }else{
+                task.name = text
+                startBtn.alpha = 0
+                clockLabel.alpha = 1
+                pausePlayButton.alpha = 1
+                stopButton.alpha = 1
+                statsButton.alpha = 0
+                isPaused = false
+                timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+                
+                textField.resignFirstResponder()
+               
+                titleLabel.text = task.name
+                textField.alpha = 0
+            }
         }
-        titleLabel.text = task.name
-        textField.alpha = 0
-        
     }
     
     
@@ -82,6 +94,8 @@ class ViewController: UIViewController {
             self.pausePlayButton.alpha = 0
             self.stopButton.alpha = 0
             self.textField.alpha = 1
+            self.statsButton.alpha = 1
+            self.titleLabel.text = "Waht goiing to do?"
             
         }))
         
@@ -104,7 +118,25 @@ class ViewController: UIViewController {
         
     }
     
+    
+    @IBAction func statsButtonActive(_ sender: Any) {
+        guard let vc = storyboard?.instantiateViewController(identifier: "second") as? SecondViewController else{
+            print("failed to get vc from second")
+            return
+        }
+        present(vc, animated: true)
+        
+    }
 
+    
+    @IBAction func statsButtonByCatsAcitve(_ sender: Any) {
+        guard let vc = storyboard?.instantiateViewController(identifier: "Third") as? ThirdViewController else{
+            print("failed to get vc from third")
+            return
+        }
+        present(vc, animated: true)
+    }
+    
 }
 
 extension ViewController: UITextFieldDelegate{

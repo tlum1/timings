@@ -27,7 +27,7 @@ class TimeParser{
     func getDateLikeYYYYMMDD(date:Date) -> String{
         
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd"
+        df.dateFormat = "yyyy.MM.dd"
         return df.string(from: date)
     }
     
@@ -48,8 +48,8 @@ class TimeParser{
     }
     
     func addTime(a:String, b:String) -> String{
-        var a_splt = a.split(separator: ":")
-        var b_splt = b.split(separator: ":")
+        let a_splt = a.split(separator: ":")
+        let b_splt = b.split(separator: ":")
         
         var h = (Int(a_splt[0]) ?? 0)  + (Int(b_splt[0]) ?? 0)
         var m = (Int(a_splt[1]) ?? 0)  + (Int(b_splt[1]) ?? 0)
@@ -70,6 +70,34 @@ class TimeParser{
 
         return timeString
         
+    }
+    
+    func stringTimeToSec(sourceTime:String) -> Double{
+        let spltTime = sourceTime.split(separator: ":")
+        let h = (Int(spltTime[0]) ?? 0)
+        let m = (Int(spltTime[1]) ?? 0)
+        let s = (Int(spltTime[2]) ?? 0)
+        
+        return Double(h * 3600 + m * 60 + s)
+    }
+    
+    
+    func getDaysOfWeek(startDay:String) -> [String]{
+        let gregorian = Calendar(identifier: .gregorian)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd"
+        let date = dateFormatter.date(from: startDay)!
+        
+        var days: [String] = []
+        
+        for i in 0...6{
+            days.append(self.getDateLikeYYYYMMDD(
+                date: gregorian.date(byAdding: .day, value: i, to: date)!
+                )
+            )
+        }
+        return days
     }
 }
 
