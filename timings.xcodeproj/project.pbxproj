@@ -20,6 +20,7 @@
 		727060972A51D59400120929 /* timingsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727060962A51D59400120929 /* timingsUITestsLaunchTests.swift */; };
 		727060A42A51ED1C00120929 /* timeParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727060A32A51ED1C00120929 /* timeParsing.swift */; };
 		727060A62A51EDAA00120929 /* task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 727060A52A51EDAA00120929 /* task.swift */; };
+		72EA45B92A5C319B0027E494 /* FourthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72EA45B82A5C319B0027E494 /* FourthViewController.swift */; };
 		72F3ADBB2A5815CF003DB923 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F3ADBA2A5815CF003DB923 /* SecondViewController.swift */; };
 		72FAEC5C2A55A669006D0369 /* chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72FAEC5B2A55A669006D0369 /* chart.swift */; };
 		BD4A5796DEB217E6FF5E4E2B /* Pods_timings.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBB970CBFEDEE4CA56A370E /* Pods_timings.framework */; };
@@ -60,6 +61,7 @@
 		727060962A51D59400120929 /* timingsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timingsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		727060A32A51ED1C00120929 /* timeParsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = timeParsing.swift; sourceTree = "<group>"; };
 		727060A52A51EDAA00120929 /* task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = task.swift; sourceTree = "<group>"; };
+		72EA45B82A5C319B0027E494 /* FourthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourthViewController.swift; sourceTree = "<group>"; };
 		72F3ADBA2A5815CF003DB923 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 		72FAEC5B2A55A669006D0369 /* chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chart.swift; sourceTree = "<group>"; };
 		8CBB970CBFEDEE4CA56A370E /* Pods_timings.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_timings.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +141,7 @@
 				72FAEC5B2A55A669006D0369 /* chart.swift */,
 				72F3ADBA2A5815CF003DB923 /* SecondViewController.swift */,
 				7232C4682A5C221C00DCF709 /* ThirdViewController.swift */,
+				72EA45B82A5C319B0027E494 /* FourthViewController.swift */,
 			);
 			path = timings;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				7232C4692A5C221C00DCF709 /* ThirdViewController.swift in Sources */,
 				727060782A51D59300120929 /* ViewController.swift in Sources */,
 				727060742A51D59300120929 /* AppDelegate.swift in Sources */,
+				72EA45B92A5C319B0027E494 /* FourthViewController.swift in Sources */,
 				727060762A51D59300120929 /* SceneDelegate.swift in Sources */,
 				727060A42A51ED1C00120929 /* timeParsing.swift in Sources */,
 				72FAEC5C2A55A669006D0369 /* chart.swift in Sources */,

@@ -139,6 +139,13 @@ class ViewController: UIViewController {
         present(vc, animated: true)
     }
     
+    @IBAction func fulltimeBtnActive(_ sender: Any) {
+        guard let vc = storyboard?.instantiateViewController(identifier: "Fourth") as? FourthViewController else{
+            print("failed to get vc from fourth")
+            return
+        }
+        present(vc, animated: true)
+    }
 }
 
 extension ViewController: UITextFieldDelegate{

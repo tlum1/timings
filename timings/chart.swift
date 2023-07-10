@@ -27,11 +27,40 @@ class PieChartDraw{
         return chartView
     }()
     
+    func _truncateCategories(categories:Dictionary<String,String>)-> Dictionary<String,String>{
+        let parser = TimeParser()
+        let sortedKeys = Array(categories.keys).sorted(by:<)
+        var totalLessThan5Percent: Double = 0
+        var totalSec: Double = 0
+        
+        for cat in sortedKeys{
+            totalSec = totalSec + parser.stringTimeToSec(sourceTime: categories[cat]!)
+        }
+        
+        for cat in sortedKeys{
+            let sec = parser.stringTimeToSec(sourceTime: categories[cat]!) / totalSec * 100
+            if sec > 5{
+                self.dataPoints.append("\(cat) - \(categories[cat]!)")
+                self.dataEntries.append(sec)
+            }else{
+                totalLessThan5Percent = totalLessThan5Percent + sec
+            }
+        }
+        
+        self.dataPoints.append("Other")
+        self.dataEntries.append(totalLessThan5Percent)
+        
+        return categories
+        
+    }
+    
     func _getValues(path:String) -> Dictionary<String,String>{
         let JSONHelper = servicesJSON()
         let parser = TimeParser()
         var categories:Dictionary<String,String> = [:]
+        
         let data:  Dictionary<String, Dictionary<String, Dictionary<String, String>>> = JSONHelper.loadJSON(withFilename: path) as! Dictionary<String, Dictionary<String, Dictionary<String, String>>>
+        
         if data.isEmpty{
             print("data is empty")
         }else{
@@ -49,31 +78,45 @@ class PieChartDraw{
                 }
             }
         }
-        let sortedKeys = Array(categories.keys).sorted(by:<)
-        var totalLessThan5Percent: Double = 0
-        for cat in sortedKeys{
-            let sec = parser.stringTimeToSec(sourceTime: categories[cat]!)
-            if sec > 5{
-                self.dataPoints.append("\(cat) - \(categories[cat]!)")
-                self.dataEntries.append(sec)
-            }else{
-                totalLessThan5Percent = totalLessThan5Percent + sec
+        
+       return _truncateCategories(categories: categories)
+    }
+    
+    
+    func _getFullTimeValues(path:String) -> Dictionary<String,String>{
+        let JSONHelper = servicesJSON()
+        let parser = TimeParser()
+        var categories:Dictionary<String,String> = [:]
+        
+        let data:  Dictionary<String, Dictionary<String, Dictionary<String, String>>> = JSONHelper.loadJSON(withFilename: path) as! Dictionary<String, Dictionary<String, Dictionary<String, String>>>
+        
+        if data.isEmpty{
+            print("data is empty")
+        }else{
+            for week in data.keys{
+                for (_,  cats) in data[week]!{
+                    for (cat, catTime) in cats{
+                        let containsCat = categories.contains{$0.key == cat}
+                        if containsCat{
+                            categories[cat]! = parser.addTime(a: categories[cat]!, b: catTime)
+                        }else{
+                            categories[cat] = catTime
+                        }
+                    }
+                }
             }
         }
         
-        self.dataPoints.append("Other")
-        self.dataEntries.append(totalLessThan5Percent)
-        
-        return categories
+        return _truncateCategories(categories: categories)
     }
     
+    
+    
     func _getPieChartDataEntries(categories:Dictionary<String,String>) -> [PieChartDataEntry]{
-        let totalSec = self.dataEntries.reduce(0, +)
-        
         var values: [PieChartDataEntry] = []
         
         for i in 0..<self.dataPoints.count {
-            let dataEntry = PieChartDataEntry(value: self.dataEntries[i] / totalSec * 100, label: self.dataPoints[i])
+            let dataEntry = PieChartDataEntry(value: self.dataEntries[i], label: self.dataPoints[i])
             values.append(dataEntry)
         }
         
@@ -81,9 +124,8 @@ class PieChartDraw{
     }
     
     
-    func setData(path: String){
+    func _setData(values: [PieChartDataEntry]){
         var  colors: [UIColor] = []
-        let values = self._getPieChartDataEntries(categories: self._getValues(path: path))
         for _ in 0..<values.count {
             let red = Double(arc4random_uniform(256)) / 1.5
             let green = Double(arc4random_uniform(256)) / 1.5
@@ -108,6 +150,18 @@ class PieChartDraw{
         self.pieChartView.data = data
         data.setValueFormatter(DefaultValueFormatter(formatter: pFormatter))
     }
+    
+    func setWeekData(path:String){
+        let values = self._getPieChartDataEntries(categories: self._getValues(path: path))
+        _setData(values: values)
+    }
+    
+    func setFullTimeData(path:String){
+        let values = self._getPieChartDataEntries(categories: self._getFullTimeValues(path: path))
+        
+        _setData(values: values)
+    }
+    
     
     /*
      TODO

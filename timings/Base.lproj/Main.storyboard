@@ -91,9 +91,18 @@
                                 <rect key="frame" x="209" y="654" width="138" height="62"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" image="chart.bar.xaxis" catalog="system" title="by categories"/>
+                                <buttonConfiguration key="configuration" style="filled" image="chart.pie.fill" catalog="system" title="by categories"/>
                                 <connections>
                                     <action selector="statsButtonByCatsAcitve:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cJi-n3-O05"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Unc-dA-u8h">
+                                <rect key="frame" x="54" y="731" width="293" height="60"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="chart.pie.fill" catalog="system" title="Full-time statistic"/>
+                                <connections>
+                                    <action selector="fulltimeBtnActive:" destination="BYZ-38-t0r" eventType="touchUpInside" id="WCP-ik-O91"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -150,6 +159,30 @@
             </objects>
             <point key="canvasLocation" x="-5" y="580"/>
         </scene>
+        <!--Fourth View Controller-->
+        <scene sceneID="gFa-0h-G17">
+            <objects>
+                <viewController storyboardIdentifier="Fourth" id="mZ7-ax-dtv" customClass="FourthViewController" customModule="timings" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7bB-qe-3q8">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Full-time statistic" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XoR-7P-AjG">
+                                <rect key="frame" x="50" y="101" width="293" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="8GZ-dU-KoB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JjH-zR-hwf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="949" y="580"/>
+        </scene>
         <!--Second View Controller-->
         <scene sceneID="2Kg-M1-c0n">
             <objects>
@@ -190,6 +223,7 @@
     <color key="tintColor" systemColor="systemIndigoColor"/>
     <resources>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="99"/>
+        <image name="chart.pie.fill" catalog="system" width="128" height="123"/>
         <image name="pause.fill" catalog="system" width="117" height="128"/>
         <image name="stop.fill" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
