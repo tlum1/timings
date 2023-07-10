@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var statsButton: UIButton!
-    
+    @IBOutlet weak var byCatsBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +51,7 @@ class ViewController: UIViewController {
                 pausePlayButton.alpha = 1
                 stopButton.alpha = 1
                 statsButton.alpha = 0
+                byCatsBtn.alpha = 0
                 isPaused = false
                 timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
                 
@@ -95,7 +96,8 @@ class ViewController: UIViewController {
             self.stopButton.alpha = 0
             self.textField.alpha = 1
             self.statsButton.alpha = 1
-            self.titleLabel.text = "Waht goiing to do?"
+            self.byCatsBtn.alpha = 1
+            self.titleLabel.text = "What going to do?"
             
         }))
         
